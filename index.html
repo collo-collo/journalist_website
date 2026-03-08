@@ -11,14 +11,41 @@
             scroll-behavior: smooth;
         }
         
+        /* navigation button styling */
+        nav a.nav-button {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            background: var(--color-primary) !important;
+            color: #fff !important;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        nav a.nav-button:hover {
+            background: var(--color-secondary) !important;
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+        nav a.active {
+            background: var(--color-secondary) !important;
+            color: #fff !important;
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #2c3e50;
+            color: var(--color-dark);
+            overflow-x: hidden;
         }
         
         h1, h2, h3 {
             font-weight: 600;
             letter-spacing: -0.5px;
+        }
+        
+        /* Vibrant color scheme - Reduced to 2 main colors */
+        :root {
+            --color-primary: #1e3a8a; /* dark blue */
+            --color-secondary: #2563eb; /* medium blue */
+            --color-dark: #000;
+            --color-light: #fff;
         }
         
         .nav-underline {
@@ -32,8 +59,8 @@
             bottom: -2px;
             left: 0;
             width: 0;
-            height: 2px;
-            background-color: #1a1a1a;
+            height: 3px;
+            background: var(--color-primary);
             transition: width 0.3s ease;
         }
         
@@ -44,55 +71,108 @@
         .accent-line {
             width: 60px;
             height: 4px;
-            background: linear-gradient(90deg, #1a1a1a 0%, #a0a0a0 100%);
+            background: var(--color-primary);
             margin: 2rem auto 0;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         .profile-image {
             position: relative;
             overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(30, 58, 138, 0.3), 0 0 0 2px rgba(30, 58, 138, 0.1);
+            animation: slideInRight 0.8s ease-out;
         }
         
         .profile-image img {
             transition: transform 0.6s ease;
+            filter: saturate(1.1);
         }
         
         .profile-image:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(2deg);
+            filter: saturate(1.3) brightness(1.1);
+        }
+        
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .profile-image:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .timeline-item {
             position: relative;
             padding-left: 3rem;
+            padding: 2rem;
+            border-left: 4px solid var(--color-primary);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .timeline-item:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
-            background-color: #1a1a1a;
-            border: 3px solid #f5f5f5;
+            left: -24px;
+            top: 2.5rem;
+            width: 16px;
+            height: 16px;
+            background: var(--color-primary);
+            border: 4px solid #fff;
             border-radius: 50%;
-            box-shadow: 0 0 0 3px #1a1a1a;
+            box-shadow: 0 0 0 4px var(--color-primary);
+            animation: pulse 2s infinite;
         }
         
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 5.5px;
-            top: 3rem;
-            width: 1px;
-            height: 4rem;
-            background-color: #e0e0e0;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
         
         .cta-button {
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            background: var(--color-primary) !important;
+            color: white !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
         }
         
         .cta-button::before {
@@ -102,36 +182,90 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background-color: #0d0d0d;
-            transition: left 0.3s ease;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4));
+            transition: left 0.4s ease;
             z-index: -1;
         }
         
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(30, 58, 138, 0.4);
+        }
+        
         .cta-button:hover::before {
-            left: 0;
+            left: 100%;
         }
         
         .form-input {
-            background-color: #f9f9f9;
-            border: 1px solid #e0e0e0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            color: white;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
         
         .form-input:focus {
-            background-color: #fff;
-            border-color: #1a1a1a;
-            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.2);
         }
         
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(30, 58, 138, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.7); }
         }
         
         .fade-in {
@@ -156,128 +290,307 @@
             width: 40px;
             border-radius: 50%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            border: 3px solid var(--color-primary);
+            box-shadow: 0 0 15px rgba(30, 58, 138, 0.4);
         }
         
         .nav-logo:hover {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
+        }
+        
+        /* Gallery styles */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+            filter: saturate(1.1);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.12) rotate(3deg);
+            filter: saturate(1.4) brightness(1.15);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.8), rgba(37, 99, 235, 0.8));
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 10;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-text h3 {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Parallax background */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -2;
+            filter: brightness(0.7) blur(2px);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent2));
+            border-radius: 2px;
+            opacity: 0;
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+        
+        /* Text gradient */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent1), var(--color-accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-title {
+            position: relative;
+            line-height: 1.2;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .hero-title span {
+            display: inline-block;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        .hero-title span:nth-child(1) { animation-delay: 0.1s; }
+        .hero-title span:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title span:nth-child(3) { animation-delay: 0.3s; }
+        
+        nav {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)) !important;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+            animation: slideDown 0.4s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .achievement-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid var(--color-primary);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .achievement-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left-color: var(--color-primary);
         }
     </style>
 </head>
 <body class="bg-white">
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 backdrop-blur-md bg-opacity-95">
+    <nav class="sticky top-0 z-50 border-b border-gray-100 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <a href="index-professional.html" class="flex items-center">
-                    <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="nav-logo">
-                </a>
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="flex items-center">
+                        <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="nav-logo">
+                    </a>
+                    <!-- small-screen links -->
+                    <a href="gallery.html" class="sm:hidden text-sm font-medium text-gray-700">Gallery</a>
+                    <a href="articles.html" class="sm:hidden text-sm font-medium text-gray-700">Articles</a>
+                </div>
                 <div class="flex gap-6 sm:gap-10 items-center">
                     <a href="#home" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Home</a>
                     <a href="#about" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">About</a>
                     <a href="#experience" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Experience</a>
                     <a href="#achievements" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Awards</a>
-                    <a href="#articles" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Articles</a>
+                    <a href="gallery.html" class="nav-underline hidden sm:inline nav-button">Gallery</a>
                     <a href="#contact" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Contact</a>
-                    <a href="articles.html" class="text-sm font-medium px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 transition">Articles</a>
+                    <a href="articles.html" class="text-sm font-medium cta-button nav-button">Articles</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-0">
-        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-            <div>
-                <div class="space-y-6">
-                    <div>
-                        <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">Welcome</p>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mt-2">Sarah Wambui<br>Mwangi</h1>
-                    </div>
-                    <p class="text-lg sm:text-xl text-gray-600 font-light max-w-xl">Award-winning multimedia journalist with 10+ years of experience in storytelling, documentary production, and digital content creation.</p>
-                    <div class="accent-line"></div>
-                    <p class="text-sm sm:text-base text-gray-700 leading-relaxed max-w-lg">
-                        Currently pursuing Master's in Digital Journalism. Passionate about leveraging storytelling and media for development and social impact.
-                    </p>
-                    <div class="pt-4">
-                        <a href="#contact" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm cta-button hover:text-white transition">Get In Touch</a>
-                    </div>
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-0 relative overflow-hidden">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-60" style="background-image: url('mal.webp');"></div>
+        <div class="absolute inset-0 -z-10 bg-black opacity-50"></div>
+        <div class="max-w-2xl w-full relative z-10 text-center text-white">
+            <div class="animate-fadeInDown mb-8">
+                <div class="relative w-28 h-28 mx-auto mb-6">
+                    <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="w-full h-full object-cover rounded-full border-4 border-white shadow-2xl">
                 </div>
             </div>
-            <div class="profile-image rounded-lg overflow-hidden shadow-lg">
-                <img src="mal.webp" alt="Sarah Mwangi" class="w-full h-full object-cover">
+            
+            <div class="animate-fadeInUp">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4">
+                    <span class="text-white">Sarah</span><br>
+                    <span class="text-white">Wambui</span><br>
+                    <span class="text-white">Mwangi</span>
+                </h1>
+                
+                <p class="text-lg sm:text-xl text-gray-100 font-light mb-4">
+                    Multimedia Journalist & Photographer
+                </p>
+                
+                <p class="text-base sm:text-lg text-gray-200 max-w-xl mx-auto mb-8">
+                    Award-winning storyteller with 10+ years of experience in documentary production, investigative reporting, and visual content creation across Africa.
+                </p>
+                
+                <div class="flex gap-6 justify-center mb-12 animate-fadeInUp" style="animation-delay: 0.2s;">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 border border-white border-opacity-40 flex items-center justify-center text-white hover:bg-opacity-40 transition backdrop-blur-sm">f</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 border border-white border-opacity-40 flex items-center justify-center text-white hover:bg-opacity-40 transition backdrop-blur-sm">𝕏</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 border border-white border-opacity-40 flex items-center justify-center text-white hover:bg-opacity-40 transition backdrop-blur-sm">📷</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 border border-white border-opacity-40 flex items-center justify-center text-white hover:bg-opacity-40 transition backdrop-blur-sm">in</a>
+                </div>
+                
+                <div class="flex gap-4 justify-center flex-wrap animate-fadeInUp" style="animation-delay: 0.4s;">
+                    <a href="#contact" class="inline-block px-8 py-4 font-medium text-sm cta-button rounded-lg">Get In Touch</a>
+                    <a href="gallery.html" class="inline-block px-8 py-4 font-medium text-sm border-2 border-white text-white rounded-lg hover:bg-white hover:text-blue-900 transition">View Gallery</a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="bg-gray-50 py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+    <section id="about" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-50">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-30" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop');"></div>
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12 sm:mb-16">
-                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">About Me</p>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Professional Background</h2>
+                <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-4 animate-fadeInDown">About Me</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900">Professional Background</h2>
             </div>
             
-            <div class="space-y-6 sm:space-y-8">
-                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
-                    A dedicated and result-oriented multimedia journalist with over 10 years of established experience in storytelling, creative digital content creation, conducting interviews, research, production, and audience relations strategies. Proficient in workplace and media relationship building, strategic planning, budgeting, leadership, project management, and teamwork.
-                </p>
-                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
-                    I'm a dynamic and creative multimedia journalist with a successful track record of leading teams in storytelling, developing creative, award-winning shows and impactful documentaries. Currently pursuing a master's degree in digital journalism while leveraging education, skills, and vast experience to lead teams in storytelling for development and social impact.
-                </p>
+            <div class="space-y-6 sm:space-y-8 animate-fadeInUp" style="animation-delay: 0.2s;">
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-2xl transition border-l-4 border-blue-600">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                        A dedicated and result-oriented multimedia journalist with over 10 years of established experience in storytelling, creative digital content creation, conducting interviews, research, production, and audience relations strategies. Proficient in workplace and media relationship building, strategic planning, budgeting, leadership, project management, and teamwork.
+                    </p>
+                </div>
+                <div class="p-8 bg-white rounded-xl shadow-lg hover:shadow-2xl transition border-l-4 border-cyan-500" style="animation-delay: 0.3s;">
+                    <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                        I'm a dynamic and creative multimedia journalist with a successful track record of leading teams in storytelling, developing creative, award-winning shows and impactful documentaries. Currently pursuing a master's degree in digital journalism while leveraging education, skills, and vast experience to lead teams in storytelling for development and social impact.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+    <section id="experience" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1552323554-5fefe8c9ef14?w=1200&h=800&fit=crop');"></div>
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16 sm:mb-20">
-                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Career</p>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Professional Experience</h2>
+            <div class="text-center mb-16 sm:mb-20 animate-fadeInDown">
+                <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-4">Career</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900">Professional Experience</h2>
             </div>
 
-            <div class="space-y-12">
-                <div class="timeline-item">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2023 September - Present</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Editorial Producer</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">Thee Alfa House</p>
+            <div class="space-y-8">
+                <div class="timeline-item" style="animation-delay: 0.1s;">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest">2023 September - Present</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-3 mb-3">Editorial Producer</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3 font-semibold">Thee Alfa House</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Host for the Fanya Mambo Africa Podcast. Managing social media teams and field reporting for documentaries and live events. Managing production teams, conducting research, supervising edits, quality assurance, and administrative roles.
                     </p>
                 </div>
 
-                <div class="timeline-item">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2020 August - 2023 August</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Multimedia Journalist & Consultant</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">Oxygene Marketing, Camerafrica Communications, Hotseat Productions</p>
+                <div class="timeline-item" style="animation-delay: 0.2s;">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest">2020 August - 2023 August</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-3 mb-3">Multimedia Journalist & Consultant</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3 font-semibold">Oxygene Marketing, Camerafrica Communications, Hotseat Productions</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Produced documentaries and communications material for clients. Created research, scripting, interviews, and oversaw projects from pre-production to post-production including EABL Centenary documentaries and HELB productions. Created online political & current affairs show.
                     </p>
                 </div>
 
-                <div class="timeline-item">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2018 December - 2020 June</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Senior Producer</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">K24 TV</p>
+                <div class="timeline-item" style="animation-delay: 0.3s;">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest">2018 December - 2020 June</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-3 mb-3">Senior Producer</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3 font-semibold">K24 TV</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Produced "Up-close," a leading weekly magazine show that aired every Friday as a news segment. Prepared budgets and managed production logistics.
                     </p>
                 </div>
 
-                <div class="timeline-item">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2017 April - 2018 November</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Package Producer – Editorial Team</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">KTN News</p>
+                <div class="timeline-item" style="animation-delay: 0.4s;">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest">2017 April - 2018 November</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-3 mb-3">Package Producer – Editorial Team</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3 font-semibold">KTN News</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Developed ideas for TV shows and documentaries, researched and pitched story ideas to editors. Worked with anchors, reporters, and video editors to execute interviews and ensure broadcast quality. Key lead producer for 2017 election coverage team (Kivumbi).
                     </p>
                 </div>
 
-                <div class="timeline-item">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2013 January - 2014 October</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Assistant Content Producer</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">Media Development In Africa (MEDEVA)</p>
+                <div class="timeline-item" style="animation-delay: 0.5s;">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest">2013 January - 2014 October</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-3 mb-3">Assistant Content Producer</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3 font-semibold">Media Development In Africa (MEDEVA)</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Developed creative content for 'Tazama' and environmental show 'Project Green' broadcast on KTN. Conducted research, scripting, interviews, voicing stories, and prepared production budgets and plans.
                     </p>
@@ -287,25 +600,29 @@
     </section>
 
     <!-- Awards & Achievements Section -->
-    <section id="achievements" class="bg-gray-50 py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+    <section id="achievements" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-50">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-25" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop');"></div>
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16 sm:mb-20">
-                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Recognition</p>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Awards & Achievements</h2>
+            <div class="text-center mb-16 sm:mb-20 animate-fadeInDown">
+                <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-4">Recognition</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 flex items-center justify-center gap-4">
+                    <span class="text-4xl">🏆</span>
+                    Awards & Achievements
+                </h2>
             </div>
 
-            <div class="space-y-8">
-                <div class="pb-8 border-b border-gray-200">
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Energy Reporting Award</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-2">2013</p>
+            <div class="space-y-6">
+                <div class="achievement-card" style="animation-delay: 0.1s;">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Energy Reporting Award</h3>
+                    <p class="text-sm sm:text-base text-blue-700 font-semibold mb-3">2013</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Won for a story on energy innovations in Korogocho, where youths were using plastic bottles and detergent to create house lighting.
                     </p>
                 </div>
 
-                <div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Annual Journalism Excellence Awards (AJEA) Finalist</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-2">2014</p>
+                <div class="achievement-card" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Annual Journalism Excellence Awards (AJEA) Finalist</h3>
+                    <p class="text-sm sm:text-base text-blue-700 font-semibold mb-3">2014</p>
                     <p class="text-base text-gray-700 leading-relaxed">
                         Finalist for a feature on the water crisis in AIC Girls Kajiado. After the story aired, a borehole was drilled by philanthropists, demonstrating real-world impact of investigative journalism.
                     </p>
@@ -315,35 +632,36 @@
     </section>
 
     <!-- Education Section -->
-    <section id="education" class="bg-gray-50 py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+    <section id="education" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-white">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-150784272343-583f20270319?w=1200&h=800&fit=crop');"></div>
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16 sm:mb-20">
-                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Qualifications</p>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Education</h2>
+            <div class="text-center mb-16 sm:mb-20 animate-fadeInDown">
+                <p class="text-xs sm:text-sm font-semibold text-cyan-500 uppercase tracking-widest mb-4">Qualifications</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900">Education</h2>
             </div>
 
-            <div class="space-y-8">
-                <div class="pb-8 border-b border-gray-200 last:border-b-0">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">August 2024 - To date</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Master of Arts in Digital Journalism</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">Aga Khan University, Graduate School of Media and Communications (GSMC), Kenya</p>
+            <div class="space-y-6">
+                <div class="p-6 bg-white rounded-lg border-l-4 border-cyan-500 shadow-lg hover:shadow-xl transition animate-fadeInUp" style="animation-delay: 0.1s;">
+                    <p class="text-xs sm:text-sm font-semibold text-cyan-500 uppercase tracking-widest mb-2">August 2024 - To date</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Master of Arts in Digital Journalism</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Aga Khan University, Graduate School of Media and Communications (GSMC), Kenya</p>
                 </div>
 
-                <div class="pb-8 border-b border-gray-200 last:border-b-0">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">March - November 2017</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Bloomberg Media Initiative</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">Training in Financial/Business and Data Journalism</p>
+                <div class="p-6 bg-white rounded-lg border-l-4 border-purple-500 shadow-lg hover:shadow-xl transition animate-fadeInUp" style="animation-delay: 0.2s;">
+                    <p class="text-xs sm:text-sm font-semibold text-purple-500 uppercase tracking-widest mb-2">March - November 2017</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Bloomberg Media Initiative</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Training in Financial/Business and Data Journalism</p>
                 </div>
 
-                <div class="pb-8 border-b border-gray-200 last:border-b-0">
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">August 2009 - November 2012</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Bachelor of Arts in Mass Communication (Electronic Media)</h3>
-                    <p class="text-sm sm:text-base text-gray-600 mb-3">Jomo Kenyatta University of Agriculture and Technology</p>
+                <div class="p-6 bg-white rounded-lg border-l-4 border-pink-500 shadow-lg hover:shadow-xl transition animate-fadeInUp" style="animation-delay: 0.3s;">
+                    <p class="text-xs sm:text-sm font-semibold text-pink-500 uppercase tracking-widest mb-2">August 2009 - November 2012</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Bachelor of Arts in Mass Communication (Electronic Media)</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Jomo Kenyatta University of Agriculture and Technology</p>
                 </div>
 
-                <div>
-                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Professional Training</p>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Certifications & Training</h3>
+                <div class="p-6 bg-white rounded-lg border-l-4 border-blue-600 shadow-lg hover:shadow-xl transition animate-fadeInUp" style="animation-delay: 0.4s;">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">Professional Training</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Certifications & Training</h3>
                     <p class="text-base text-gray-700">Masterclass for Journalists on Corporate Governance (International Finance Corporation through Strathmore Business School). Certificate in Radio, Video Production and Content Development (MEDEVA Training, June 2012).</p>
                 </div>
             </div>
@@ -351,61 +669,64 @@
     </section>
 
     <!-- Articles Section -->
-    <section id="articles" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Featured Work</p>
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+    <section id="articles" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-50">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-25" style="background-image: url('https://images.unsplash.com/photo-1444716278900-1b8727b4d86f?w=1200&h=800&fit=crop');"></div>
+        <div class="max-w-4xl mx-auto text-center animate-fadeInDown">
+            <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest mb-4">Featured Work</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">Latest Articles</h2>
             <p class="text-base sm:text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
                 Explore my latest investigative pieces, feature articles, and multimedia projects.
             </p>
-            <a href="articles.html" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm cta-button hover:text-white transition">View All Articles</a>
+            <a href="articles.html" class="inline-block px-8 py-4 font-medium text-sm cta-button rounded-lg">View All Articles</a>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="bg-gradient-to-br from-gray-900 to-gray-800 py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-white">
-        <div class="max-w-2xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Get In Touch</p>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Let's Work Together</h2>
-                <p class="text-base sm:text-lg text-gray-300">Have a story idea, partnership opportunity, or just want to connect? I'd love to hear from you.</p>
+    <section id="contact" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop');"></div>
+        <div class="absolute inset-0 -z-10 bg-black opacity-70"></div>
+        <div class="max-w-2xl mx-auto relative z-10">
+            <div class="text-center mb-12 sm:mb-16 animate-fadeInDown relative z-10">
+                <p class="text-xs sm:text-sm font-semibold text-blue-400 uppercase tracking-widest mb-4">Get In Touch</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">Let's Work Together</h2>
+                <p class="text-base sm:text-lg text-gray-200">Have a story idea, partnership opportunity, or just want to connect? I'd love to hear from you.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
-                <div>
-                    <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Email</p>
-                    <a href="mailto:mwangisarah3@gmail.com" class="text-lg sm:text-xl text-white hover:text-gray-300 transition">mwangisarah3@gmail.com</a>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12 animate-fadeInUp relative z-10">
+                <div class="p-6 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 hover:border-opacity-40 transition backdrop-blur-sm">
+                    <p class="text-xs sm:text-sm font-semibold text-blue-400 uppercase tracking-widest mb-2">Email</p>
+                    <a href="mailto:mwangisarah3@gmail.com" class="text-lg sm:text-xl text-white hover:text-blue-400 transition font-semibold">mwangisarah3@gmail.com</a>
                 </div>
-                <div>
-                    <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Phone</p>
-                    <a href="tel:+254720571009" class="text-lg sm:text-xl text-white hover:text-gray-300 transition">+254 720 571009</a>
-                </div>
-            </div>
-
-            <div class="mb-12">
-                <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Follow</p>
-                <div class="flex gap-6">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-gray-600 transition">f</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-gray-600 transition">𝕏</a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-gray-600 transition">📷</a>
+                <div class="p-6 rounded-lg bg-white bg-opacity-10 border border-white border-opacity-20 hover:border-opacity-40 transition backdrop-blur-sm">
+                    <p class="text-xs sm:text-sm font-semibold text-cyan-300 uppercase tracking-widest mb-2">Phone</p>
+                    <a href="tel:+254720571009" class="text-lg sm:text-xl text-white hover:text-cyan-300 transition font-semibold">+254 720 571009</a>
                 </div>
             </div>
 
-            <form class="space-y-4">
+            <div class="mb-12 animate-fadeInUp" style="animation-delay: 0.2s; position: relative; z-index: 10;">
+                <p class="text-xs sm:text-sm font-semibold text-blue-400 uppercase tracking-widest mb-6 text-center">Follow</p>
+                <div class="flex gap-6 justify-center">
+                    <a href="#" class="w-14 h-14 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 flex items-center justify-center text-white hover:bg-opacity-20 hover:border-opacity-40 transition text-2xl backdrop-blur-sm">f</a>
+                    <a href="#" class="w-14 h-14 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 flex items-center justify-center text-white hover:bg-opacity-20 hover:border-opacity-40 transition text-2xl backdrop-blur-sm">𝕏</a>
+                    <a href="#" class="w-14 h-14 rounded-full bg-white bg-opacity-10 border border-white border-opacity-20 flex items-center justify-center text-white hover:bg-opacity-20 hover:border-opacity-40 transition text-2xl backdrop-blur-sm">📷</a>
+                </div>
+            </div>
+
+            <form class="space-y-4 animate-fadeInUp relative z-10" style="animation-delay: 0.4s;">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input type="text" placeholder="Your Name" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm">
-                    <input type="email" placeholder="Your Email" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm" required>
+                    <input type="text" placeholder="Your Name" class="form-input w-full px-4 py-4 rounded-lg placeholder-gray-300 text-sm" required>
+                    <input type="email" placeholder="Your Email" class="form-input w-full px-4 py-4 rounded-lg placeholder-gray-300 text-sm" required>
                 </div>
-                <input type="text" placeholder="Subject" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm">
-                <textarea placeholder="Message" rows="6" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm resize-none"></textarea>
-                <button type="submit" class="w-full bg-white text-gray-900 font-semibold py-3 rounded hover:bg-gray-100 transition text-sm">Send Message</button>
+                <input type="text" placeholder="Subject" class="form-input w-full px-4 py-4 rounded-lg placeholder-gray-300 text-sm" required>
+                <textarea placeholder="Message" rows="6" class="form-input w-full px-4 py-4 rounded-lg placeholder-gray-300 text-sm resize-none" required></textarea>
+                <button type="submit" class="w-full bg-blue-500 text-white font-bold py-4 rounded-lg hover:bg-blue-700 transition text-sm transform hover:scale-105" style="color: white !important;">Send Message</button>
             </form>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-950 border-t border-gray-800 py-8 px-4 text-center text-gray-500 text-xs">
-        <p>© 2026 Sarah Wambui Mwangi.<br> All rights reserved. <br>Media Council of Kenya (MCK) </p>
+    <footer class="bg-gray-900 border-t border-blue-600 border-opacity-20 py-8 px-4 text-center text-gray-500 text-xs relative">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-10" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop');"></div>
+        <p class="relative z-10">© 2026 Sarah Wambui Mwangi.<br> All rights reserved. <br>Media Council of Kenya (MCK) </p>
     </footer>
     
     <script>
@@ -422,7 +743,7 @@
                     // Stagger animation for children
                     const children = entry.target.querySelectorAll('.fade-in');
                     children.forEach((child, index) => {
-                        child.style.animationDelay = (index * 0.1) + 's';
+                        child.style.animationDelay = (index * 0.15) + 's';
                     });
                 }
             });
@@ -436,7 +757,80 @@
             document.querySelectorAll('.fade-in').forEach(element => {
                 observer.observe(element);
             });
+            
+            // Gallery item animation
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach(item => {
+                observer.observe(item);
+            });
         });
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const profileImage = document.querySelector('.profile-image');
+            if (profileImage) {
+                profileImage.style.transform = `translateY(${scrollY * 0.5}px)`;
+            }
+        });
+        
+        // Add stagger delays to timeline items
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            item.style.setProperty('--stagger-index', index);
+        });
+        
+        // Form submission with feedback
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '✓ Message Sent!';
+                submitBtn.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
+                
+                setTimeout(() => {
+                    form.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                }, 3000);
+            });
+        }
+    </script>
+    <script>
+    // highlight active nav link based on URL/hash
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('nav a');
+        const path = window.location.pathname.split('/').pop();
+        const hash = window.location.hash;
+        links.forEach(a => {
+            const href = a.getAttribute('href');
+            if (!href) return;
+            if (
+                href === path ||
+                href === window.location.pathname ||
+                (href === 'index.html' && (path === '' || path === 'index.html')) ||
+                (hash && href === hash)
+            ) {
+                a.classList.add('active');
+            }
+        });
+    });
     </script>
 </body>
 </html>

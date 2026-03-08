@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Gallery - Sarah Wambui Mwangi</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        /* navigation button styling */
+        nav a.nav-button {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            background: var(--color-primary) !important;
+            color: #fff !important;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        nav a.nav-button:hover {
+            background: var(--color-secondary) !important;
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+        nav a.active {
+            background: var(--color-secondary) !important;
+            color: #fff !important;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--color-dark);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        :root {
+            --color-primary: #1e3a8a; /* dark blue */
+            --color-secondary: #2563eb; /* medium blue */
+            --color-dark: #000;
+            --color-light: #fff;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        nav {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)) !important;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+            animation: slideDown 0.4s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .nav-logo {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            border: 3px solid var(--color-primary);
+            box-shadow: 0 0 15px rgba(30, 58, 138, 0.4);
+        }
+        
+        .nav-logo:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
+        }
+        
+        .nav-underline {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-underline:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary)) !important;
+            color: white !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(30, 58, 138, 0.4);
+            color: white !important;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            color: var(--color-primary);
+            background: transparent;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid transparent;
+        }
+
+        .filter-btn.active {
+            background-color: transparent;
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .filter-btn:hover {
+            background-color: transparent;
+            color: var(--color-primary);
+            border-bottom: 3px solid var(--color-primary);
+        }
+        
+        /* hero image background matching example layout */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=1200&h=800&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+        }
+        .hero .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Sliding background images */
+        .sliding-background {
+            position: relative;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .sliding-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&h=600&fit=crop') 0% center,
+                url('https://images.unsplash.com/photo-1491975806893-3f1f3aa5e982?w=800&h=600&fit=crop') 33.33% center,
+                url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&h=600&fit=crop') 66.66% center,
+                url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&h=600&fit=crop') 100% center
+            );
+            background-size: 33.33% 100%;
+            filter: blur(8px) brightness(0.6);
+            animation: slideLeft 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+
+        .sliding-background .gallery-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gallery items with rotation animation */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: scaleIn 0.6s ease-out backwards;
+            transition: all 0.3s ease;
+            aspect-ratio: 4/3;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.8s; }
+        .gallery-item:nth-child(10) { animation-delay: 0.9s; }
+        .gallery-item:nth-child(11) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(12) { animation-delay: 0.2s; }
+
+        .gallery-item:hover {
+            animation-play-state: paused;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px) scale(1.05) !important;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b border-gray-100 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex items-center gap-3">
+                    <a href="index.html" class="flex items-center">
+                        <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="nav-logo">
+                    </a>
+                    <a href="gallery.html" class="sm:hidden text-sm font-medium text-gray-700">Gallery</a>
+                    <a href="articles.html" class="sm:hidden text-sm font-medium text-gray-700">Articles</a>
+                </div>
+                <div class="flex gap-6 sm:gap-10 items-center">
+                    <a href="index.html" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Home</a>
+                    <a href="index.html#about" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">About</a>
+                    <a href="index.html#experience" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Experience</a>
+                    <a href="index.html#achievements" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Awards</a>
+                    <a href="gallery.html" class="nav-underline hidden sm:inline nav-button">Gallery</a>
+                    <a href="index.html#contact" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Contact</a>
+                    <a href="articles.html" class="text-sm font-medium cta-button nav-button">Articles</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section with Sidebar Layout -->
+    <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 pt-8 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <!-- Left Sidebar -->
+        <div class="lg:w-1/3 shrink-0">
+            <div class="sticky top-20">
+                <h3 class="text-xs font-bold text-pink-500 tracking-widest mb-6 uppercase">My Portfolio</h3>
+                <h1 class="text-5xl sm:text-6xl font-bold text-gray-900 mb-8 leading-tight">Make with the<br><span class="bg-pink-200 px-2">words</span> already.</h1>
+                <p class="text-lg font-semibold text-gray-800 mb-4">Let's do this thing.</p>
+                <p class="text-sm text-gray-600 leading-relaxed">Here are a few of the lovely brands I've written for (and what I wrote for them). Have a good nose through and get a feel for what I can do.</p>
+            </div>
+        </div>
+
+        <!-- Right Content Area -->
+        <div class="lg:w-2/3">
+            <!-- Featured Image -->
+            <div class="mb-12 rounded-lg overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&h=500&fit=crop" alt="Portfolio workspace" class="w-full h-auto object-cover">
+            </div>
+
+            <!-- Category Filter -->
+            <div class="mb-12 border-t border-b border-gray-300 py-4 px-0">
+                <div class="flex flex-wrap gap-3">
+                    <button class="filter-btn active" data-filter="all">ALL</button>
+                    <button class="filter-btn" data-filter="documentary">AGENCY</button>
+                    <button class="filter-btn" data-filter="portraits">BEAUTY & SKINCARE</button>
+                    <button class="filter-btn" data-filter="events">FASHION</button>
+                    <button class="filter-btn" data-filter="landscape">FOOD</button>
+                    <button class="filter-btn" data-filter="street">HOMEWARE</button>
+                    <button class="filter-btn" data-filter="cultural">PHOTOGRAPHERS</button>
+                    <button class="filter-btn" data-filter="cultural">TECH & SOFTWARE</button>
+                    <button class="filter-btn" data-filter="cultural">WOMEN IN INDUSTRY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <!-- Gallery Grid with Sliding Background -->
+        <div class="sliding-background py-20 px-8 rounded-2xl">
+            <div class="gallery-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                <!-- Image 1: Documentary -->
+                <div class="gallery-item" data-category="documentary">
+                    <img src="https://images.unsplash.com/photo-1491975806893-3f1f3aa5e982?w=500&h=400&fit=crop" alt="Documentary Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Field Stories</p>
+                </div>
+
+                <!-- Image 2: Portrait -->
+                <div class="gallery-item" data-category="portraits">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&h=400&fit=crop" alt="Portrait Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Intimate Portraits</p>
+                </div>
+
+                <!-- Image 3: Event -->
+                <div class="gallery-item" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=500&h=400&fit=crop" alt="Event Coverage">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Events & Conferences</p>
+                </div>
+
+                <!-- Image 4: Landscape -->
+                <div class="gallery-item" data-category="landscape">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop" alt="Landscape Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Landscapes & Nature</p>
+                </div>
+
+                <!-- Image 5: Street -->
+                <div class="gallery-item" data-category="street">
+                    <img src="https://images.unsplash.com/photo-1516397261757-b7627c13b60d?w=500&h=400&fit=crop" alt="Street Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Urban Stories</p>
+                </div>
+
+                <!-- Image 6: Cultural -->
+                <div class="gallery-item" data-category="cultural">
+                    <img src="https://images.unsplash.com/photo-1500634148957-17e754a01911?w=500&h=400&fit=crop" alt="Cultural Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Cultural Heritage</p>
+                </div>
+
+                <!-- Image 7: Documentary Project -->
+                <div class="gallery-item" data-category="documentary">
+                    <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=500&h=400&fit=crop" alt="Documentary Project">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Community Work</p>
+                </div>
+
+                <!-- Image 8: Studio Portrait -->
+                <div class="gallery-item" data-category="portraits">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=400&fit=crop" alt="Studio Portrait">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Professional Portraits</p>
+                </div>
+
+                <!-- Image 9: Editorial -->
+                <div class="gallery-item" data-category="documentary">
+                    <img src="https://images.unsplash.com/photo-1470090718868-4aa60d727f59?w=500&h=400&fit=crop" alt="Editorial Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Editorial Work</p>
+                </div>
+
+                <!-- Image 10: Action -->
+                <div class="gallery-item" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=400&fit=crop" alt="Action Photography">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Action & Movement</p>
+                </div>
+
+                <!-- Image 11: Environmental -->
+                <div class="gallery-item" data-category="landscape">
+                    <img src="https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=500&h=400&fit=crop" alt="Environmental">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Environmental Issues</p>
+                </div>
+
+                <!-- Image 12: Human Interest -->
+                <div class="gallery-item" data-category="documentary">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=400&fit=crop" alt="Human Interest">
+                    <p class="mt-3 text-sm text-gray-600 font-medium">Human Stories</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- About Photography Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-8">Photography Approach</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Documentary & Impact</h3>
+                    <p class="text-gray-700 leading-relaxed">My photography is rooted in journalism and storytelling. I capture authentic moments that reveal the human experience across communities, cultures, and development contexts throughout Africa and beyond.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Professional Excellence</h3>
+                    <p class="text-gray-700 leading-relaxed">With over 10 years in multimedia production, each photograph demonstrates technical skill, creative vision, and emotional depth. From documentary projects to corporate assignments, quality and impact are always paramount.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12">Photography Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="pb-8 border-b md:border-b-0 md:border-r border-gray-200 md:pr-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Documentary & Editorial</h3>
+                    <p class="text-gray-700">Professional documentation for NGOs, editorial features, investigative stories, and multimedia projects. Storytelling through powerful imagery.</p>
+                </div>
+                <div class="pb-8 md:pl-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Events & Commercial</h3>
+                    <p class="text-gray-700">Conference coverage, corporate photography, brand documentation, and professional headshots for business and marketing needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-blue-600 border-opacity-20 py-8 px-4 text-center text-gray-500 text-xs mt-20 relative">
+        <div class="absolute inset-0 -z-10 bg-cover bg-center opacity-10" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop');"></div>
+        <p class="relative z-10">© 2026 Sarah Wambui Mwangi.<br> All rights reserved. <br>Media Council of Kenya (MCK) </p>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter items
+                galleryItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        item.style.display = 'block';
+                        item.style.animation = 'scaleIn 0.6s ease-out forwards';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="index.html#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.location.href = this.getAttribute('href');
+                }
+            });
+        });
+
+        // highlight active nav link
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('nav a');
+            const path = window.location.pathname.split('/').pop();
+            links.forEach(a => {
+                const href = a.getAttribute('href');
+                if (!href) return;
+                if (
+                    href === path ||
+                    href === window.location.pathname ||
+                    (href === 'index.html' && (path === '' || path === 'index.html')) ||
+                    href === 'gallery.html' && path === 'gallery.html'
+                ) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // Gallery rotation animation - items move to next position
+        function rotateGallery() {
+            const galleryGrid = document.querySelector('.gallery-grid');
+            if (!galleryGrid) return;
+
+            const items = Array.from(galleryGrid.children);
+            if (items.length === 0) return;
+
+            // Move the first item to the end (creates rotation effect)
+            const firstItem = items[0];
+            galleryGrid.appendChild(firstItem);
+
+            // Add a brief slideIn animation for smooth transition
+            firstItem.style.animation = 'slideIn 0.8s ease-out';
+            setTimeout(() => {
+                firstItem.style.animation = '';
+            }, 800);
+        }
+
+        // Start rotation every 4 seconds
+        setInterval(rotateGallery, 4000);
+
+        // Add slideIn animation for smooth rotation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0.7;
+                    transform: scale(0.95) translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
