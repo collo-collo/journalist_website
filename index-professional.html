@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Mwangi - Journalist & Writer</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-underline {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #1a1a1a;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-underline:hover::after {
+            width: 100%;
+        }
+        
+        .accent-line {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #1a1a1a 0%, #a0a0a0 100%);
+            margin: 2rem auto 0;
+        }
+        
+        .profile-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-image img {
+            transition: transform 0.6s ease;
+        }
+        
+        .profile-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background-color: #1a1a1a;
+            border: 3px solid #f5f5f5;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #1a1a1a;
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 5.5px;
+            top: 3rem;
+            width: 1px;
+            height: 4rem;
+            background-color: #e0e0e0;
+        }
+        
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #0d0d0d;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 0;
+        }
+        
+        .form-input {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            background-color: #fff;
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .fade-in.in-view {
+            opacity: 1;
+        }
+        
+        section {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        section:not(.in-view) {
+            opacity: 0;
+        }
+        
+        .nav-logo {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 backdrop-blur-md bg-opacity-95">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="index-professional.html" class="flex items-center">
+                    <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="nav-logo">
+                </a>
+                <div class="flex gap-6 sm:gap-10 items-center">
+                    <a href="#home" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Home</a>
+                    <a href="#about" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">About</a>
+                    <a href="#experience" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Experience</a>
+                    <a href="#achievements" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Awards</a>
+                    <a href="#articles" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Articles</a>
+                    <a href="#contact" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Contact</a>
+                    <a href="articles.html" class="text-sm font-medium px-4 py-2 bg-gray-900 text-white rounded hover:bg-gray-800 transition">Articles</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-0">
+        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+            <div>
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">Welcome</p>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mt-2">Sarah Wambui<br>Mwangi</h1>
+                    </div>
+                    <p class="text-lg sm:text-xl text-gray-600 font-light max-w-xl">Award-winning multimedia journalist with 10+ years of experience in storytelling, documentary production, and digital content creation.</p>
+                    <div class="accent-line"></div>
+                    <p class="text-sm sm:text-base text-gray-700 leading-relaxed max-w-lg">
+                        Currently pursuing Master's in Digital Journalism. Passionate about leveraging storytelling and media for development and social impact.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#contact" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm cta-button hover:text-white transition">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-image rounded-lg overflow-hidden shadow-lg">
+                <img src="mal.webp" alt="Sarah Mwangi" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-gray-50 py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16">
+                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">About Me</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Professional Background</h2>
+            </div>
+            
+            <div class="space-y-6 sm:space-y-8">
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    A dedicated and result-oriented multimedia journalist with over 10 years of established experience in storytelling, creative digital content creation, conducting interviews, research, production, and audience relations strategies. Proficient in workplace and media relationship building, strategic planning, budgeting, leadership, project management, and teamwork.
+                </p>
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    I'm a dynamic and creative multimedia journalist with a successful track record of leading teams in storytelling, developing creative, award-winning shows and impactful documentaries. Currently pursuing a master's degree in digital journalism while leveraging education, skills, and vast experience to lead teams in storytelling for development and social impact.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 sm:mb-20">
+                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Career</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Professional Experience</h2>
+            </div>
+
+            <div class="space-y-12">
+                <div class="timeline-item">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2023 September - Present</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Editorial Producer</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">Thee Alfa House</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Host for the Fanya Mambo Africa Podcast. Managing social media teams and field reporting for documentaries and live events. Managing production teams, conducting research, supervising edits, quality assurance, and administrative roles.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2020 August - 2023 August</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Multimedia Journalist & Consultant</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">Oxygene Marketing, Camerafrica Communications, Hotseat Productions</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Produced documentaries and communications material for clients. Created research, scripting, interviews, and oversaw projects from pre-production to post-production including EABL Centenary documentaries and HELB productions. Created online political & current affairs show.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2018 December - 2020 June</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Senior Producer</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">K24 TV</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Produced "Up-close," a leading weekly magazine show that aired every Friday as a news segment. Prepared budgets and managed production logistics.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2017 April - 2018 November</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Package Producer – Editorial Team</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">KTN News</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Developed ideas for TV shows and documentaries, researched and pitched story ideas to editors. Worked with anchors, reporters, and video editors to execute interviews and ensure broadcast quality. Key lead producer for 2017 election coverage team (Kivumbi).
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest">2013 January - 2014 October</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mt-2 mb-3">Assistant Content Producer</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">Media Development In Africa (MEDEVA)</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Developed creative content for 'Tazama' and environmental show 'Project Green' broadcast on KTN. Conducted research, scripting, interviews, voicing stories, and prepared production budgets and plans.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards & Achievements Section -->
+    <section id="achievements" class="bg-gray-50 py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 sm:mb-20">
+                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Recognition</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Awards & Achievements</h2>
+            </div>
+
+            <div class="space-y-8">
+                <div class="pb-8 border-b border-gray-200">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Energy Reporting Award</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-2">2013</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Won for a story on energy innovations in Korogocho, where youths were using plastic bottles and detergent to create house lighting.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Annual Journalism Excellence Awards (AJEA) Finalist</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-2">2014</p>
+                    <p class="text-base text-gray-700 leading-relaxed">
+                        Finalist for a feature on the water crisis in AIC Girls Kajiado. After the story aired, a borehole was drilled by philanthropists, demonstrating real-world impact of investigative journalism.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="bg-gray-50 py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 sm:mb-20">
+                <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Qualifications</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Education</h2>
+            </div>
+
+            <div class="space-y-8">
+                <div class="pb-8 border-b border-gray-200 last:border-b-0">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">August 2024 - To date</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Master of Arts in Digital Journalism</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">Aga Khan University, Graduate School of Media and Communications (GSMC), Kenya</p>
+                </div>
+
+                <div class="pb-8 border-b border-gray-200 last:border-b-0">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">March - November 2017</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Bloomberg Media Initiative</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">Training in Financial/Business and Data Journalism</p>
+                </div>
+
+                <div class="pb-8 border-b border-gray-200 last:border-b-0">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">August 2009 - November 2012</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Bachelor of Arts in Mass Communication (Electronic Media)</h3>
+                    <p class="text-sm sm:text-base text-gray-600 mb-3">Jomo Kenyatta University of Agriculture and Technology</p>
+                </div>
+
+                <div>
+                    <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Professional Training</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">Certifications & Training</h3>
+                    <p class="text-base text-gray-700">Masterclass for Journalists on Corporate Governance (International Finance Corporation through Strathmore Business School). Certificate in Radio, Video Production and Content Development (MEDEVA Training, June 2012).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Featured Work</p>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+            <p class="text-base sm:text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                Explore my latest investigative pieces, feature articles, and multimedia projects.
+            </p>
+            <a href="articles.html" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm cta-button hover:text-white transition">View All Articles</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gradient-to-br from-gray-900 to-gray-800 py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-white">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-12 sm:mb-16">
+                <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Get In Touch</p>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Let's Work Together</h2>
+                <p class="text-base sm:text-lg text-gray-300">Have a story idea, partnership opportunity, or just want to connect? I'd love to hear from you.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+                <div>
+                    <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Email</p>
+                    <a href="mailto:mwangisarah3@gmail.com" class="text-lg sm:text-xl text-white hover:text-gray-300 transition">mwangisarah3@gmail.com</a>
+                </div>
+                <div>
+                    <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Phone</p>
+                    <a href="tel:+254720571009" class="text-lg sm:text-xl text-white hover:text-gray-300 transition">+254 720 571009</a>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <p class="text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Follow</p>
+                <div class="flex gap-6">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-gray-600 transition">f</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-gray-600 transition">𝕏</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white hover:bg-gray-600 transition">📷</a>
+                </div>
+            </div>
+
+            <form class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" placeholder="Your Name" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm">
+                    <input type="email" placeholder="Your Email" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm" required>
+                </div>
+                <input type="text" placeholder="Subject" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm">
+                <textarea placeholder="Message" rows="6" class="form-input w-full px-4 py-3 rounded text-gray-900 placeholder-gray-500 text-sm resize-none"></textarea>
+                <button type="submit" class="w-full bg-white text-gray-900 font-semibold py-3 rounded hover:bg-gray-100 transition text-sm">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-8 px-4 text-center text-gray-500 text-xs">
+        <p>© 2026 Sarah Wambui Mwangi.<br> All rights reserved. <br>Media Council of Kenya (MCK) </p>
+    </footer>
+    
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    // Stagger animation for children
+                    const children = entry.target.querySelectorAll('.fade-in');
+                    children.forEach((child, index) => {
+                        child.style.animationDelay = (index * 0.1) + 's';
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

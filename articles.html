@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - Sarah Wambui Mwangi</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-underline {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #1a1a1a;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-underline:hover::after {
+            width: 100%;
+        }
+        
+        .article-card {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 3rem;
+        }
+        
+        .article-card:hover {
+            transform: translateX(8px);
+        }
+        
+        .article-card:last-child {
+            border-bottom: none;
+        }
+        
+        .article-image {
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 16/10;
+        }
+        
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .article-card:hover .article-image img {
+            transform: scale(1.05);
+        }
+        
+        .read-more {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .read-more:hover::after {
+            left: 0;
+        }
+        
+        .nav-logo {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .fade-in.in-view {
+            opacity: 1;
+        }
+        
+        section {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        section:not(.in-view) {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 backdrop-blur-md bg-opacity-95">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex items-center gap-3">
+                    <a href="index-professional.html" class="flex items-center">
+                        <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="nav-logo">
+                    </a>
+                    <a href="index-professional.html" class="sm:hidden text-sm font-medium text-gray-700">Home</a>
+                </div>
+                <div class="flex gap-6 sm:gap-10 items-center">
+                    <a href="index-professional.html#home" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Home</a>
+                    <a href="index-professional.html#about" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">About</a>
+                    <a href="index-professional.html#experience" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Experience</a>
+                    <a href="index-professional.html#achievements" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Awards</a>
+                    <a href="articles.html" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Articles</a>
+                    <a href="index-professional.html#contact" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gray-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Featured Work</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">Articles & Stories</h1>
+            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+                Exploring compelling narratives in journalism, investigative reporting, and multimedia storytelling.
+            </p>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-16">
+                <!-- Article 1 -->
+                <article class="article-card">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                        <div class="md:col-span-1">
+                            <div class="article-image">
+                                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop" alt="Energy Innovations in Korogocho">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Energy Innovations in Korogocho</h3>
+                            <p class="text-sm sm:text-base text-gray-600 mb-3">Award-winning story | 2013</p>
+                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                                An investigative feature exploring how youths in Korogocho are using plastic bottles and detergent to create house lighting solutions. This story won the Energy Reporting Award and demonstrated the power of grassroots innovation in addressing energy poverty.
+                            </p>
+                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="article-card">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                        <div class="md:col-span-1">
+                            <div class="article-image">
+                                <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&h=300&fit=crop" alt="Water Crisis Documentary">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Water Crisis in AIC Girls Kajiado</h3>
+                            <p class="text-sm sm:text-base text-gray-600 mb-3">AJEA Finalist | 2014</p>
+                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                                A feature documentary on the critical water shortage at AIC Girls Kajiado. After this story aired, philanthropists were moved to action, resulting in the drilling of a new borehole at the school. A powerful example of journalism creating real-world impact.
+                            </p>
+                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="article-card">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                        <div class="md:col-span-1">
+                            <div class="article-image">
+                                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop" alt="Election Coverage">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Coverage</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">2017 Election Coverage - Kivumbi</h3>
+                            <p class="text-sm sm:text-base text-gray-600 mb-3">Lead Producer | KTN News</p>
+                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                                Served as key lead producer for the Kivumbi election coverage team during Kenya's 2017 general elections. Coordinated editorial, production, and technical teams for comprehensive outside broadcasting coverage of national and commercial events.
+                            </p>
+                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="article-card">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                        <div class="md:col-span-1">
+                            <div class="article-image">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop" alt="EABL Centenary">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">EABL Centenary Documentary</h3>
+                            <p class="text-sm sm:text-base text-gray-600 mb-3">Multimedia Production | 2022</p>
+                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                                Comprehensive documentary project celebrating East African Breweries Limited's centenary. Conducted extensive research, interviews with key stakeholders, and oversaw production from pre-production through post-production phases.
+                            </p>
+                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="article-card">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                        <div class="md:col-span-1">
+                            <div class="article-image">
+                                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop" alt="Environmental Reporting">
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Environmental</p>
+                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Project Green: Environmental Storytelling</h3>
+                            <p class="text-sm sm:text-base text-gray-600 mb-3">Content Producer | MEDEVA</p>
+                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
+                                Multi-episode environmental series exploring conservation, sustainability, and climate impact stories. Conducted research, created scripts, conducted interviews, and voiced stories aired on KTN, reaching millions of viewers across the region.
+                            </p>
+                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gray-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">More Stories Coming</h2>
+            <p class="text-base sm:text-lg text-gray-600 mb-8">
+                Exploring documentary production, multimedia journalism, and stories of impact across Africa.
+            </p>
+            <a href="index-professional.html#contact" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm hover:bg-gray-800 transition rounded">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 border-t border-gray-800 py-8 px-4 text-center text-gray-500 text-xs">
+        <p>© 2026 Sarah Wambui Mwangi. <br>All rights reserved. <br> Media Council of Kenya (MCK) </p>
+    </footer>
+    
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    // Stagger animation for children
+                    const children = entry.target.querySelectorAll('.fade-in');
+                    children.forEach((child, index) => {
+                        child.style.animationDelay = (index * 0.1) + 's';
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
