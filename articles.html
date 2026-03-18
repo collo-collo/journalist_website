@@ -7,510 +7,146 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            scroll-behavior: smooth;
-        }
-        
-        /* navigation button styling */
-        nav a.nav-button {
-            padding: 0.5rem 1rem;
-            font-weight: 500;
-            border-radius: 0.375rem;
-            background: var(--color-primary) !important;
-            color: #fff !important;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-        nav a.nav-button:hover {
-            background: var(--color-secondary) !important;
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-        }
-        nav a.active {
-            background: var(--color-secondary) !important;
-            color: #fff !important;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--color-dark);
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3 {
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-        
-        :root {
-            --color-primary: #1e3a8a; /* dark blue */
-            --color-secondary: #2563eb; /* medium blue */
-            --color-dark: #000;
-            --color-light: #fff;
-        }
-        
-        h1, h2, h3 {
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-        
-        .nav-underline {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-underline::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-            transition: width 0.3s ease;
-        }
-        
-        .nav-underline:hover::after {
-            width: 100%;
-        }
-        
-        .article-card {
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(30, 58, 138, 0.15);
-            padding-bottom: 3rem;
-        }
-        
-        .article-card:hover {
-            transform: translateX(8px);
-        }
-        
-        .article-card:last-child {
-            border-bottom: none;
-        }
-        
-        .article-image {
-            overflow: hidden;
-            border-radius: 8px;
-            aspect-ratio: 16/10;
-        }
-        
-        .article-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        
-        .article-card:hover .article-image img {
-            transform: scale(1.05);
-        }
-        
-        .read-more {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-        
-        .read-more::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background-color: var(--color-primary);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .read-more:hover::after {
-            left: 0;
-        }
-        
-        nav {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9)) !important;
-            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
-            animation: slideDown 0.4s ease-out;
-        }
-        
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .nav-logo {
-            height: 40px;
-            width: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            transition: all 0.3s ease;
-            border: 3px solid var(--color-primary);
-            box-shadow: 0 0 15px rgba(30, 58, 138, 0.4);
-        }
-        
-        .nav-logo:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-fadeInDown {
-            animation: fadeInDown 0.8s ease-out;
-        }
-        
-        .animate-fadeInUp {
-            animation: fadeInUp 0.8s ease-out;
-        }
-        
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        
-        .fade-in.in-view {
-            opacity: 1;
-        }
-        
-        section {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        
-        section:not(.in-view) {
-            opacity: 0;
-        }
-        
-        .accent-line {
-            width: 60px;
-            height: 4px;
-            background: var(--color-primary);
-            margin: 2rem auto 0;
-            animation: shimmer 3s infinite;
-        }
-        
-        @keyframes shimmer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .profile-image {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(30, 58, 138, 0.3), 0 0 0 2px rgba(30, 58, 138, 0.1);
-            animation: slideInRight 0.8s ease-out;
-        }
-        
-        .profile-image img {
-            transition: transform 0.6s ease;
-            filter: saturate(1.1);
-        }
-        
-        .profile-image:hover img {
-            transform: scale(1.08) rotate(2deg);
-            filter: saturate(1.3) brightness(1.1);
-        }
-        
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .profile-image:hover::before {
-            opacity: 1;
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .cta-button {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-primary)) !important;
-            color: white !important;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 35px rgba(30, 58, 138, 0.4);
-            color: white !important;
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .article-card { transition: all 0.3s ease; }
+        .article-card:hover { transform: translateX(8px); }
+        .read-more:hover { color: white; }
+        .article-image img { transition: transform 0.6s ease; }
+        .article-card:hover .article-image img { transform: scale(1.05); }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-white scroll-smooth">
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 border-b border-gray-100 backdrop-blur-md">
+    <nav class="sticky top-0 z-50 border-b border-gray-100 backdrop-blur-md bg-gradient-to-r from-white/95 to-white/90 shadow-sm">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 sm:h-20">
                 <div class="flex items-center gap-3">
                     <a href="index.html" class="flex items-center">
-                        <img src="mel.jpeg" alt="Sarah Wambui Mwangi" class="nav-logo">
+                        <img src="mel.jpeg" alt="Sarah" class="h-10 w-10 rounded-full object-cover border-2 border-blue-900 shadow-md hover:scale-110 transition-transform">
                     </a>
                     <a href="gallery.html" class="sm:hidden text-sm font-medium text-gray-700">Gallery</a>
                     <a href="articles.html" class="sm:hidden text-sm font-medium text-gray-700">Articles</a>
                 </div>
                 <div class="flex gap-6 sm:gap-10 items-center">
-                    <a href="index.html#home" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Home</a>
-                    <a href="index.html#about" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">About</a>
-                    <a href="index.html#experience" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Experience</a>
-                    <a href="index.html#achievements" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Awards</a>
-                    <a href="gallery.html" class="nav-underline hidden sm:inline nav-button">Gallery</a>
-                    <a href="index.html#contact" class="nav-underline hidden sm:inline text-sm font-medium text-gray-700">Contact</a>
-                    <a href="articles.html" class="nav-underline hidden sm:inline nav-button">Articles</a>
+                    <a href="index.html" class="hidden sm:inline text-sm font-medium text-gray-700 hover:text-blue-900">Home</a>
+                    <a href="about.html" class="hidden sm:inline text-sm font-medium text-gray-700 hover:text-blue-900">About</a>
+                    <a href="about.html#experience" class="hidden sm:inline text-sm font-medium text-gray-700 hover:text-blue-900">Experience</a>
+                    <a href="about.html#achievements" class="hidden sm:inline text-sm font-medium text-gray-700 hover:text-blue-900">Awards</a>
+                    <a href="gallery.html" class="hidden sm:inline px-3 py-2 rounded text-white bg-blue-900 font-medium text-sm hover:bg-blue-700 transition">Gallery</a>
+                    <a href="about.html#contact" class="hidden sm:inline text-sm font-medium text-gray-700 hover:text-blue-900">Contact</a>
+                    <a href="articles.html" class="px-3 py-2 rounded text-white bg-blue-900 font-medium text-sm hover:bg-blue-700 transition">Articles</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="articles-hero" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-0 relative overflow-hidden">
-        <div class="absolute inset-0 -z-10">
+    <section id="articles-hero" class="min-h-96 md:min-h-screen md:flex md:items-center md:justify-center px-4 sm:px-6 lg:px-8 py-20 sm:py-0 relative overflow-hidden">
+        <div class="absolute inset-0 -z-10 md:flex">
             <div class="absolute top-10 left-10 w-72 h-72 bg-gradient-to-br from-blue-300 to-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-            <div class="absolute bottom-10 right-10 w-72 h-72 bg-gradient-to-br from-cyan-300 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-10 right-10 w-72 h-72 bg-gradient-to-br from-cyan-300 to-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20" style="animation-delay: 2s;"></div>
         </div>
         <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
-            <div>
-                <div class="space-y-6 animate-fadeInUp">
-                    <div>
-                        <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest animate-fadeInDown">Featured Work</p>
-                        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mt-4">
-                            <span class="text-gray-900">Articles &</span><br>
-                            <span class="text-gray-900">Stories</span>
-                        </h1>
-                    </div>
-                    <p class="text-lg sm:text-xl text-gray-600 font-light max-w-xl animate-fadeInUp" style="animation-delay: 0.2s;">Exploring compelling narratives in journalism, investigative reporting, and multimedia storytelling.</p>
-                    <div class="accent-line"></div>
-                    <p class="text-sm sm:text-base text-gray-700 leading-relaxed max-w-lg animate-fadeInUp" style="animation-delay: 0.4s;">
-                        From award-winning features to in-depth investigations, discover stories that matter and voices that need to be heard.
-                    </p>
-                    <div class="pt-4 flex gap-4 animate-fadeInUp" style="animation-delay: 0.6s;">
-                        <a href="#articles-section" class="inline-block px-8 py-4 font-medium text-sm cta-button rounded-lg">Explore Articles</a>
-                        <a href="index.html#contact" class="inline-block px-8 py-4 font-medium text-sm border-2 border-cyan-500 text-cyan-500 rounded-lg hover:bg-cyan-50 transition">Get In Touch</a>
-                    </div>
+            <div class="space-y-6">
+                <div>
+                    <p class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-widest">Featured Work</p>
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mt-4">
+                        <span class="text-gray-900">Articles &</span><br>
+                        <span class="text-gray-900">Stories</span>
+                    </h1>
+                </div>
+                <p class="text-lg sm:text-xl text-gray-600 font-light max-w-xl">Exploring compelling narratives in journalism, investigative reporting, and multimedia storytelling.</p>
+                <div class="flex gap-4 pt-4">
+                    <a href="#articles-section" class="inline-block px-8 py-4 bg-blue-900 text-white font-medium text-sm rounded-lg hover:bg-blue-700 transition shadow-md">Explore Articles</a>
+                    <a href="about.html#contact" class="inline-block px-8 py-4 border-2 border-cyan-500 text-cyan-500 rounded-lg hover:bg-cyan-50 transition font-medium text-sm">Get In Touch</a>
                 </div>
             </div>
-            <div class="profile-image">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop" alt="Articles and Writing" class="w-full h-full object-cover">
+            <div class="hidden md:block overflow-hidden rounded-lg shadow-xl">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop" alt="Articles" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
             </div>
         </div>
     </section>
 
     <!-- Articles Section -->
     <section id="articles-section" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="space-y-16">
-                <!-- Article 1 -->
-                <article class="article-card">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="md:col-span-1">
-                            <div class="article-image">
-                                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop" alt="Energy Innovations in Korogocho">
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Energy Innovations in Korogocho</h3>
-                            <p class="text-sm sm:text-base text-gray-600 mb-3">Award-winning story | 2013</p>
-                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
-                                An investigative feature exploring how youths in Korogocho are using plastic bottles and detergent to create house lighting solutions. This story won the Energy Reporting Award and demonstrated the power of grassroots innovation in addressing energy poverty.
-                            </p>
-                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
-                        </div>
+        <div class="max-w-4xl mx-auto space-y-16">
+            <!-- Article 1 -->
+            <article class="article-card">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                    <div class="md:col-span-1 article-image overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1504711331083-9c895941bf81?w=500&h=400&fit=crop" alt="Energy">
                     </div>
-                </article>
+                    <div class="md:col-span-2">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Energy Innovations in Korogocho</h3>
+                        <p class="text-sm sm:text-base text-gray-600 mb-3">Award-winning story | 2013</p>
+                        <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">A groundbreaking investigation into how young innovators in Korogocho are creating sustainable solutions using plastic and detergent for renewable energy.</p>
+                        <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-blue-900 hover:border-blue-900 pb-1 transition">Read Full Story →</a>
+                    </div>
+                </div>
+            </article>
 
-                <!-- Article 2 -->
-                <article class="article-card">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="md:col-span-1">
-                            <div class="article-image">
-                                <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&h=300&fit=crop" alt="Water Crisis Documentary">
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Water Crisis in AIC Girls Kajiado</h3>
-                            <p class="text-sm sm:text-base text-gray-600 mb-3">AJEA Finalist | 2014</p>
-                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
-                                A feature documentary on the critical water shortage at AIC Girls Kajiado. After this story aired, philanthropists were moved to action, resulting in the drilling of a new borehole at the school. A powerful example of journalism creating real-world impact.
-                            </p>
-                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
-                        </div>
+            <!-- Article 2 -->
+            <article class="article-card border-t pt-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                    <div class="md:col-span-1 article-image overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1524627675223-e8b13a2a04a0?w=500&h=400&fit=crop" alt="Water Crisis">
                     </div>
-                </article>
+                    <div class="md:col-span-2">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Water Crisis in AIC Girls Kajiado</h3>
+                        <p class="text-sm sm:text-base text-gray-600 mb-3">AJEA Finalist | 2014</p>
+                        <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">An in-depth investigation into water scarcity affecting rural communities. Following this story, philanthropists drilled a borehole, demonstrating journalism's real-world impact.</p>
+                        <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-blue-900 hover:border-blue-900 pb-1 transition">Read Full Story →</a>
+                    </div>
+                </div>
+            </article>
 
-                <!-- Article 3 -->
-                <article class="article-card">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="md:col-span-1">
-                            <div class="article-image">
-                                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop" alt="Election Coverage">
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Coverage</p>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">2017 Election Coverage - Kivumbi</h3>
-                            <p class="text-sm sm:text-base text-gray-600 mb-3">Lead Producer | KTN News</p>
-                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
-                                Served as key lead producer for the Kivumbi election coverage team during Kenya's 2017 general elections. Coordinated editorial, production, and technical teams for comprehensive outside broadcasting coverage of national and commercial events.
-                            </p>
-                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
-                        </div>
+            <!-- Article 3 -->
+            <article class="article-card border-t pt-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                    <div class="md:col-span-1 article-image overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=400&fit=crop" alt="Election Coverage">
                     </div>
-                </article>
+                    <div class="md:col-span-2">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Coverage</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">2017 Election Coverage - Kivumbi</h3>
+                        <p class="text-sm sm:text-base text-gray-600 mb-3">Lead Producer | KTN News</p>
+                        <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">Behind-the-scenes coverage and analysis of the 2017 elections, featuring stories from voters, poll workers, and communities at the heart of the democratic process.</p>
+                        <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-blue-900 hover:border-blue-900 pb-1 transition">Read Full Story →</a>
+                    </div>
+                </div>
+            </article>
 
-                <!-- Article 4 -->
-                <article class="article-card">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="md:col-span-1">
-                            <div class="article-image">
-                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop" alt="EABL Centenary">
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">EABL Centenary Documentary</h3>
-                            <p class="text-sm sm:text-base text-gray-600 mb-3">Multimedia Production | 2022</p>
-                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
-                                Comprehensive documentary project celebrating East African Breweries Limited's centenary. Conducted extensive research, interviews with key stakeholders, and oversaw production from pre-production through post-production phases.
-                            </p>
-                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
-                        </div>
+            <!-- Article 4 -->
+            <article class="article-card border-t pt-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                    <div class="md:col-span-1 article-image overflow-hidden rounded-lg">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=400&fit=crop" alt="Documentary">
                     </div>
-                </article>
-
-                <!-- Article 5 -->
-                <article class="article-card">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="md:col-span-1">
-                            <div class="article-image">
-                                <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=400&h=300&fit=crop" alt="Environmental Reporting">
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Environmental</p>
-                            <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Project Green: Environmental Storytelling</h3>
-                            <p class="text-sm sm:text-base text-gray-600 mb-3">Content Producer | MEDEVA</p>
-                            <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
-                                Multi-episode environmental series exploring conservation, sustainability, and climate impact stories. Conducted research, created scripts, conducted interviews, and voiced stories aired on KTN, reaching millions of viewers across the region.
-                            </p>
-                            <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-white pb-1">Read Full Story →</a>
-                        </div>
+                    <div class="md:col-span-2">
+                        <p class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">Documentary</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">EABL Centenary Documentary</h3>
+                        <p class="text-sm sm:text-base text-gray-600 mb-3">Producer | 2021</p>
+                        <p class="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">A comprehensive documentary celebrating a century of business transformation in East Africa with interviews, archival footage, and contemporary insights.</p>
+                        <a href="#" class="inline-block text-sm font-medium text-gray-900 border-b-2 border-gray-900 read-more hover:text-blue-900 hover:border-blue-900 pb-1 transition">Read Full Story →</a>
                     </div>
-                </article>
-            </div>
+                </div>
+            </article>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-gray-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <section class="bg-gray-50 py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t">
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">More Stories Coming</h2>
-            <p class="text-base sm:text-lg text-gray-600 mb-8">
-                Exploring documentary production, multimedia journalism, and stories of impact across Africa.
-            </p>
-            <a href="index.html#contact" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm hover:bg-gray-800 transition rounded">Get In Touch</a>
+            <p class="text-base sm:text-lg text-gray-600 mb-8">Exploring documentary production, multimedia journalism, and stories of impact across Africa.</p>
+            <a href="about.html#contact" class="inline-block px-8 py-3 bg-gray-900 text-white font-medium text-sm hover:bg-gray-800 transition rounded">Get In Touch</a>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800 py-8 px-4 text-center text-gray-500 text-xs">
-        <p>© 2026 Sarah Wambui Mwangi. <br>All rights reserved. <br> Media Council of Kenya (MCK) </p>
+        <p>© 2026 Sarah Wambui Mwangi. All rights reserved.<br>Media Council of Kenya (MCK)</p>
     </footer>
-    
-    <script>
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                    // Stagger animation for children
-                    const children = entry.target.querySelectorAll('.fade-in');
-                    children.forEach((child, index) => {
-                        child.style.animationDelay = (index * 0.1) + 's';
-                    });
-                }
-            });
-        }, observerOptions);
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('section').forEach(section => {
-                observer.observe(section);
-            });
-            
-            document.querySelectorAll('.fade-in').forEach(element => {
-                observer.observe(element);
-            });
-        });
-
-        // highlight active nav link
-        document.addEventListener('DOMContentLoaded', () => {
-            const links = document.querySelectorAll('nav a');
-            const path = window.location.pathname.split('/').pop();
-            const hash = window.location.hash;
-            links.forEach(a => {
-                const href = a.getAttribute('href');
-                if (!href) return;
-                if (
-                    href === path ||
-                    href === window.location.pathname ||
-                    (href === 'index.html' && (path === '' || path === 'index.html')) ||
-                    (hash && href === hash)
-                ) {
-                    a.classList.add('active');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
