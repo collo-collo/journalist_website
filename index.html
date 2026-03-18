@@ -277,23 +277,34 @@
 
         async function fetchTrendingNews() {
             try {
-                const response = await fetch('https://gnews.io/api/v4/top-headlines?token=' + NEWS_API_KEY + '&lang=en&max=10').catch(() => ({ ok: false }));
-                if (response.ok) {
-                    const data = await response.json();
-                    trendingNews = data.articles.filter(article => article.image && article.image.trim()).map(article => ({
-                        title: article.title,
-                        description: article.description,
-                        urlToImage: article.image,
-                        source: { name: article.source },
-                        publishedAt: article.publishedAt
-                    }));
-                    console.log('Fetched ' + trendingNews.length + ' articles from GNews API');
+                trendingNews = [];
+                const response = await fetch(
+                    'https://gnews.io/api/v4/top-headlines?token=' + NEWS_API_KEY + '&lang=en&max=10'
+                );
+
+                const data = await response.json();
+                console.log("API response:", data);
+
+                if (data.articles && data.articles.length > 0) {
+                    trendingNews = data.articles
+                        .filter(article => article.image)
+                        .map(article => ({
+                            title: article.title,
+                            description: article.description,
+                            urlToImage: article.image,
+                            source: { name: article.source.name },
+                            publishedAt: article.publishedAt
+                        }));
+
+                    console.log("Loaded real news:", trendingNews.length);
                 }
+
             } catch (error) {
-                console.error('Error fetching news:', error);
+                console.error("Error fetching news:", error);
             }
+
             if (trendingNews.length === 0) {
-                console.log('Using fallback news data');
+                console.log("Using fallback news data");
                 trendingNews = [
                     { title: "Breaking: Global Summit Addresses International Development", description: "World leaders gather to discuss sustainable development initiatives", urlToImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop", source: { name: "World News" }, publishedAt: new Date().toISOString() },
                     { title: "International Report: Climate Impact Accelerates Worldwide", description: "Environmental changes reshape communities across multiple continents", urlToImage: "https://images.unsplash.com/photo-1495673104541-1b036fb78b4f?w=800&h=400&fit=crop", source: { name: "Global Report" }, publishedAt: new Date().toISOString() },
